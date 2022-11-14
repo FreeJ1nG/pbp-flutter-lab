@@ -1,6 +1,4 @@
 import 'package:counter_7/drawer.dart';
-import 'package:counter_7/main.dart';
-import 'package:counter_7/form.dart';
 import 'package:flutter/material.dart';
 import 'package:counter_7/models/transaction_data.dart';
 
@@ -31,7 +29,6 @@ class _MyDataPageState extends State<MyDataPage> {
                       child: Column(children: [
                     Container(
                         width: 320,
-                        padding: const EdgeInsets.all(12.0),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4.0),
                             color: Colors.grey[100],
@@ -42,29 +39,50 @@ class _MyDataPageState extends State<MyDataPage> {
                                 offset: const Offset(1, 2),
                               ),
                             ]),
-                        child: Column(children: [
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                transaction.title ?? "",
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              )),
-                          const SizedBox(height: 6),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(transaction.nominal.toString(),
-                                  style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500)),
-                              Text(transaction.transactionType ?? "",
-                                  style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500))
-                            ],
-                          )
-                        ])),
+                        child: Column(
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(children: [
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        transaction.title ?? "",
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                                  const SizedBox(height: 6),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(transaction.nominal.toString(),
+                                          style: const TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500)),
+                                      Text(transaction.transactionType ?? "",
+                                          style: const TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500))
+                                    ],
+                                  ),
+                                ])),
+                            Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[400],
+                                    borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(4.0),
+                                        bottomRight: Radius.circular(4.0))),
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  style: const TextStyle(fontSize: 14.0),
+                                  transaction.date.toString().split(" ")[0],
+                                  textAlign: TextAlign.center,
+                                ))
+                          ],
+                        )),
                     const SizedBox(height: 12),
                   ])))
               .toList(),

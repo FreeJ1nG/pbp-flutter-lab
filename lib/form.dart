@@ -19,7 +19,21 @@ class _MyFormPageState extends State<MyFormPage> {
   String _title = "";
   num _nominal = 0;
   String _transactionType = "Pemasukan";
+  DateTime selectedDate = DateTime.now();
   List<String> transactionTypeChoices = ["Pemasukan", "Pengeluaran"];
+
+  Future<void> _selectedDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2021),
+        lastDate: DateTime(2120));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +113,20 @@ class _MyFormPageState extends State<MyFormPage> {
                     ),
                   ),
                   Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text("${selectedDate.toLocal()}".split(" ")[0]),
+                          const SizedBox(
+                            height: 8.0,
+                          ),
+                          ElevatedButton(
+                              onPressed: () => _selectedDate(context),
+                              child: const Text("Select Date"))
+                        ],
+                      )),
+                  Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: DropdownButton<String>(
                       value: _transactionType,
@@ -129,8 +157,11 @@ class _MyFormPageState extends State<MyFormPage> {
             ),
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                widget.saveTransaction(
-                    Transaction(_title, _nominal, _transactionType));
+                widget.saveTransaction(Transaction(
+                    _title, _nominal, _transactionType, selectedDate));
+                _title = "";
+                _nominal = 0;
+                selectedDate = DateTime.now();
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
