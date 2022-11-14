@@ -1,3 +1,7 @@
+import 'package:counter_7/form.dart';
+import 'package:counter_7/data.dart';
+import 'package:counter_7/drawer.dart';
+import 'package:counter_7/models/transaction_data.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,15 +18,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
-  final String title;
+  final String title = 'Counter 7 App';
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -30,6 +34,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  List<Transaction> transactions = <Transaction>[];
 
   void _incrementCounter() {
     setState(() {
@@ -43,11 +48,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void saveTransaction(Transaction newTransaction) {
+    transactions.add(newTransaction);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+        ),
+        drawer: DrawerApp(
+          saveTransaction: saveTransaction,
+          transactions: transactions,
         ),
         body: Center(
           child: Column(
