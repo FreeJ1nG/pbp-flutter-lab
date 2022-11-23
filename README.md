@@ -76,3 +76,18 @@ class Transaction {
 5. Show the data in `transactions` in `data.dart`
 
 6. Style and decorate
+
+# Flutter Web Service Integration (Tugas 9)
+
+## Is JSON models necessary
+No it is not necessary since you could serialize JSON inline by using the `json.decode()` function. Creating a factory function inside a model to parse the JSON object just makes for an easier experience of fetching data.
+
+## Widgets
+I moved the drawer widget to `drawer.dart` to make it more accessible to the other files, I also seperated the pages into a `pages` file, the components (such as drawer) to a `components` file, and the fetch logic (such as `fetchWatchlist`) to an `api` file.
+
+## How to get JSON
+First of all you just pass the url to the API. Once the response is received, you essentially get a JSON object in the form of a string. To actually process the string, you need to convert it back into JSON format, which you could do using the `json.decode()` function. Once you do that, you can access each of the key values of the JSON object.
+
+## Implementation
+Adding a new page is pretty much the same, just add a new ListTile to the drawer widget.
+For the `watchlist_data.dart`, I just grabbed the data from https://andrew-pbp-tugas2.herokuapp.com/mywatchlist/json/ which contains the data I made on Tugas 3. Once I decoded the data, I then create a local variable that stores all the data. When I tap a certain movie, I redirect the page to the details page which I passed a certain context beforehand so that it displays the appropriate information.

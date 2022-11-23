@@ -1,6 +1,6 @@
-import 'package:counter_7/drawer.dart';
+import 'package:counter_7/components/drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:counter_7/models/transaction_data.dart';
+import 'package:counter_7/models/transaction.dart';
 
 class MyDataPage extends StatefulWidget {
   const MyDataPage(
